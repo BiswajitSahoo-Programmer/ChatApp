@@ -12,6 +12,7 @@ dotenv.config();
 const app = express();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+const projectRoot = path.resolve(__dirname, '../../');
 
 
 
@@ -22,9 +23,9 @@ app.use("/api/messages", messageRoutes);
 
 // make for deployment
 if (process.env.NODE_ENV === "production") {
-    app.use(express.static(path.join(__dirname, "../../frontend/dist")))
+    app.use(express.static(path.join(projectRoot, "frontend/dist")))
     app.get("*", (_, res) => {
-        res.sendFile(path.join(__dirname, "../../frontend", "dist", "index.html"))
+        res.sendFile(path.join(projectRoot, "frontend", "dist", "index.html"))
     })
 }
 
