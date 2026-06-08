@@ -6,29 +6,29 @@ import { fileURLToPath } from 'url';
 import authRoutes from './routes/auth.route.js';
 import messageRoutes from './routes/message.route.js';
 
-
 dotenv.config();
 
 const app = express();
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const projectRoot = path.resolve(__dirname, '../../');
-
-
 
 const PORT = process.env.PORT || 3000;
 
 app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
 
-// make for deployment
-// if (process.env.NODE_ENV === "production") {
-//     app.use(express.static(path.join(projectRoot, "frontend/dist")))
-//     app.get("*", (_, res) => {
-//         res.sendFile(path.join(projectRoot, "frontend", "dist", "index.html"))
-//     })
-// }
+// Production frontend serving
+if (process.env.NODE_ENV === "production") {
+    app.use(express.static(path.join(projectRoot, "frontend", "dist")));
 
+    app.get("*", (_, res) => {
+        res.sendFile(
+            path.join(projectRoot, "frontend", "dist", "index.html")
+        );
+    });
+}
 
 app.listen(PORT, () => {
     console.log(`Server is running on port : ${PORT}`);
