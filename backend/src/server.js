@@ -22,12 +22,12 @@ app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
 
 // make for deployment
-if (process.env.NODE_ENV === "production") {
-    app.use(express.static(path.join(projectRoot, "frontend/dist")))
-    app.get("*", (_, res) => {
-        res.sendFile(path.join(projectRoot, "frontend", "dist", "index.html"))
-    })
-}
+// if (process.env.NODE_ENV === "production") {
+//     app.use(express.static(path.join(projectRoot, "frontend/dist")))
+//     app.get("*", (_, res) => {
+//         res.sendFile(path.join(projectRoot, "frontend", "dist", "index.html"))
+//     })
+// }
 
 
 app.listen(PORT, () => {
