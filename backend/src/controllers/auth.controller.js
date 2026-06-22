@@ -7,6 +7,7 @@ import cloudinary from "../lib/cloudinary.js";
 
 
 
+
 export const signup = async (req, res) => {
     const { fullname, email, password} = req.body;
 
