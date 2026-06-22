@@ -3,6 +3,8 @@ import dotenv from 'dotenv';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
+import cookieParser from 'cookie-parser';
+
 import authRoutes from './routes/auth.route.js';
 import messageRoutes from './routes/message.route.js';
 import {connectDB} from './lib/db.js';
@@ -17,6 +19,7 @@ const projectRoot = path.resolve(__dirname, '../../');
 const PORT = ENV.PORT || 3000;
 
 app.use(express.json());
+app.use(cookieParser());
 
 app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
