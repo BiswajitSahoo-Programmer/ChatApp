@@ -1,6 +1,7 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import path from 'path';
+import cors from "cors";
 import { fileURLToPath } from 'url';
 
 import cookieParser from 'cookie-parser';
@@ -19,6 +20,7 @@ const projectRoot = path.resolve(__dirname, '../../');
 const PORT = ENV.PORT || 3000;
 
 app.use(express.json());
+app.use(cors({ origin: ENV.CLIENT_URL, credentials: true }));
 app.use(cookieParser());
 
 app.use("/api/auth", authRoutes);
