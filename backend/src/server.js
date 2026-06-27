@@ -12,7 +12,6 @@ import {connectDB} from './lib/db.js';
 import { ENV } from './lib/env.js';
 import { app, server } from "./lib/socket.js";
 
-const app = express();
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -20,7 +19,8 @@ const projectRoot = path.resolve(__dirname, '../../');
 
 const PORT = ENV.PORT || 3000;
 
-app.use(express.json({ limit: '10mb' }));
+app.use(express.json({ limit: "50mb" }));
+app.use(express.urlencoded({ extended: true, limit: "50mb" }));
 app.use(cors({ origin: ENV.CLIENT_URL, credentials: true }));
 app.use(cookieParser());
 

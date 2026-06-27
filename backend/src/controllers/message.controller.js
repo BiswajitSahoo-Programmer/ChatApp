@@ -51,12 +51,31 @@ export const sendMessage = async (req, res) => {
       return res.status(404).json({ message: "Receiver not found." });
     }
 
-    let imageUrl;
-    if (image) {
-      // upload base64 image to cloudinary
-      const uploadResponse = await cloudinary.uploader.upload(image);
-      imageUrl = uploadResponse.secure_url;
-    }
+  let imageUrl;
+
+if (image) {
+  try {
+    console.log("Image starts with:", image.substring(0, 40));
+
+    const uploadResponse = await cloudinary.uploader.upload(image, {
+      resource_type: "image",
+    });
+
+    console.log(uploadResponse);
+
+    imageUrl = uploadResponse.secure_url;
+  } catch (err) {
+    console.log("========== CLOUDINARY ERROR ==========");
+    console.dir(err, { depth: null });
+    console.log("======================================");
+
+    return res.status(500).json({
+      message: err.message,
+      name: err.name,
+      http_code: err.http_code,
+    });
+  }
+}
 
     const newMessage = new Message({
       senderId,
@@ -74,7 +93,7 @@ export const sendMessage = async (req, res) => {
 
     res.status(201).json(newMessage);
   } catch (error) {
-    console.log("Error in sendMessage controller: ", error.message);
+    console.log(error);
     res.status(500).json({ error: "Internal server error" });
   }
 };
