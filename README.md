@@ -1,4 +1,4 @@
-# 💬 ChatSphere - Full Stack Real-Time Chat Application
+# 💬 ChatApp - Full Stack Real-Time Chat Application
 
 <h3 align="center">
 A modern real-time chat application built with the MERN Stack, featuring secure authentication, instant messaging, image sharing, email integration, and responsive design.
